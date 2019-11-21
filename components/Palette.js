@@ -10,6 +10,9 @@ class palette extends Component {
     constructor(props) {
         super(props);
     }
+    componentDidMount(){
+        console.log("컴포넌트 마운트됨");
+    }
     onColorSelected = (navigation) => {
         this.props.setOldColor(fromHsv(this.props.color));
         this.props.setPattern(fromHsv(this.props.color));
