@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Button, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { getAsync, askAsync, CAMERA, CAMERA_ROLL } from 'expo-permissions';
 import { launchCameraAsync, launchImageLibraryAsync } from 'expo-image-picker';
@@ -10,7 +10,7 @@ import styles from '../styles';
 class pattern extends Component {
     constructor(props) {
         super(props);
-        this.state = { check: 0 };
+        this.state = { check: 0, cancel:false, click:false };
     }
     getPermission = async (grant) => {
         const { status } = await getAsync(grant);
@@ -19,12 +19,15 @@ class pattern extends Component {
         }
     }
     selectImage = async () => {
+        this.setState({click:true});
         let result = await launchImageLibraryAsync({ 'base64': true });
         this.props.setPattern(result.base64);
         if (result.cancelled !== true) {
             this.setState({ check: 1 });
             this.props.setCheckPalette(false);
         }
+        else
+            this.setState({cancel:true});
     }
     checkSelectedGallery = () => {
         if (this.props.checkPalette !== true) {
@@ -34,6 +37,13 @@ class pattern extends Component {
                     <Image style={{ flex: 1, width: undefined, height: undefined }}
                         source={require('../icons/check.png')} />
                 </View>);
+            }
+            else if(this.state.cancel === false && this.state.check === 0 && this.state.click ===true){
+                return (
+                    <View style={{flex:1, justifyContent: 'center'}}>
+                        <ActivityIndicator size="small" color="#a55eea"/>
+                    </View>
+                );
             }
         }
     }

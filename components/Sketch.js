@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableOpacity } from 'react-native';
+import { Text, View, Button, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { getAsync, askAsync, CAMERA, CAMERA_ROLL } from 'expo-permissions';
 import { launchCameraAsync, launchImageLibraryAsync } from 'expo-image-picker';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ class sketch extends Component {
     constructor(props) {
         super(props);
         const { navigation } = this.props;
-        this.state = { check: 0 };
+        this.state = { check: 0, galleryCancel:false, galleryClick:false,
+            cameraCancel:false, cameraClick:false };
     }
     getPermission = async (grant) => {
         const { status } = await getAsync(grant);
@@ -19,16 +20,24 @@ class sketch extends Component {
         }
     }
     selectImage = async () => {
+        this.setState({galleryClick:true});
+        this.setState({cameraClick:false});
         let result = await launchImageLibraryAsync({ 'base64': true });
         this.props.setSketch(result.base64);
         if(result.cancelled !== true)
             this.setState({ check: 1 });
+        else
+            this.setState({galleryCancel:true});
     }
     takeImage = async () => {
+        this.setState({cameraClick:true});
+        this.setState({galleryClick: false});
         let result = await launchCameraAsync({ 'base64': true });
         this.props.setSketch(result.base64);
         if(result.cancelled !== true)
             this.setState({ check: 2 });
+        else
+            this.setState({cameraCancel:true});
     }
     componentDidMount() {
         this.getPermission(CAMERA_ROLL);
@@ -41,6 +50,13 @@ class sketch extends Component {
                     source={require('../icons/check.png')} />
             </View>);
         }
+        else if(this.state.galleryCancel === false && this.state.check !== 1 && this.state.galleryClick ===true){
+            return (
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size="small" color="#a55eea"/>
+                </View>
+            );
+        }
     }
     checkSelectedCamera = () => {
         if (this.state.check === 2) {
@@ -48,6 +64,13 @@ class sketch extends Component {
                 <Image style={{flex: 1, width: undefined, height: undefined}}
                     source={require('../icons/check.png')} />
             </View>);
+        }
+        else if(this.state.cameraCancel === false && this.state.check !== 2 && this.state.cameraClick ===true){
+            return (
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size="small" color="#a55eea"/>
+                </View>
+            );
         }
     }
     render() {

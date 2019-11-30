@@ -30,7 +30,7 @@ class Home extends Component {
     }
   }
   check1 = () =>{
-    if (this.props.sketch !== '파일uri') {
+    if (this.props.sketch !== '파일uri' && this.props.sketch !== undefined) {
       return (<View style={{flex: 1}}>
           <Image style={{flex: 1, width: undefined, height: undefined}}
               source={require('../icons/check.png')} />
@@ -38,7 +38,7 @@ class Home extends Component {
   }
   }
   check2 = () =>{
-    if (this.props.pattern !== '파일uri or 색상코드') {
+    if (this.props.pattern !== '파일uri or 색상코드' && this.props.sketch !== undefined) {
       return (<View style={{flex: 1}}>
           <Image style={{flex: 1, width: undefined, height: undefined}}
               source={require('../icons/check.png')} />

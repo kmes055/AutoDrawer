@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { Icon, Container, Content, Left, Body, Right, Button } from 'native-base';
+import * as FileSystem from 'expo-file-system';
 import styles from '../styles';
+import ImageView from 'react-native-image-view';
 
 import * as actions from '../modules/ducks';
 import { connect } from 'react-redux';
@@ -18,6 +20,16 @@ var {width, height} = Dimensions.get('window')
 class Mypage extends Component {
     constructor(props) {
         super(props);
+        this.state = {imageClick : false, curImage: null}
+    }
+
+    imageView = (image) => {
+        return (
+            <View style={{flex:1}}>
+            <ImageView images={image}
+            isVisible = {true}/>
+            </View>
+        )
     }
 
     renderImage = () => {
@@ -29,8 +41,7 @@ class Mypage extends Component {
                 index % 3 !== 0 ? { paddingLeft: 2}:{paddingLeft: 0}
                 ]}>
                     <Image style={{flex: 1, width: undefined, height: undefined}}
-                    source={image}
-                />
+                    source={image} onPress={(image)=>this.setState({curImage: image})} />
                 </View>
             )
         })
