@@ -1,42 +1,77 @@
 import React, { Component } from 'react';
-import { Text, View, Button, Image, TouchableOpacity } from 'react-native';
-import styles from '../styles';
-import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
-
-import * as actions from '../modules/ducks';
+import { Text, View, Button, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { getAsync, askAsync, CAMERA, CAMERA_ROLL } from 'expo-permissions';
+import { launchCameraAsync, launchImageLibraryAsync } from 'expo-image-picker';
 import { connect } from 'react-redux';
 
+import styles from '../styles';
+import * as actions from '../modules/ducks';
 class sketch extends Component {
     constructor(props) {
         super(props);
-        const { navigation } = this.props;  
+        const { navigation } = this.props;
+        this.state = { check: 0, galleryCancel:false, galleryClick:false,
+            cameraCancel:false, cameraClick:false };
     }
-
-    // 사진 선택, 사진 찍기 함수 구현
-    getPermission = async () => {
-        const { status } = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    getPermission = async (grant) => {
+        const { status } = await getAsync(grant);
         if (status !== 'granted') {
-            const { status, permissions } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-        }
-    }
-    getPermission2 = async () => {
-        const { status } = await Permissions.getAsync(Permissions.CAMERA);
-        if (status !== 'granted') {
-            const { status, permissions } = await Permissions.askAsync(Permissions.CAMERA);
+            const { status, permissions } = await askAsync(grant);
         }
     }
     selectImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({});
-        this.props.setSketch(result.uri);
+        this.setState({galleryClick:true});
+        this.setState({cameraClick:false});
+        let result = await launchImageLibraryAsync({ 'base64': true });
+        this.props.setSketch(result.base64);
+        if(result.cancelled !== true)
+            this.setState({ check: 1 });
+        else
+            this.setState({galleryCancel:true});
     }
     takeImage = async () => {
-        let result = await ImagePicker.launchCameraAsync({});
-        this.props.setSketch(result.uri);
+        this.setState({cameraClick:true});
+        this.setState({galleryClick: false});
+        let result = await launchCameraAsync({ 'base64': true });
+        this.props.setSketch(result.base64);
+        if(result.cancelled !== true)
+            this.setState({ check: 2 });
+        else
+            this.setState({cameraCancel:true});
     }
     componentDidMount() {
-        this.getPermission();
-        this.getPermission2();
+        this.getPermission(CAMERA_ROLL);
+        this.getPermission(CAMERA);
+    }
+    checkSelectedGallery = () => {
+        if (this.state.check === 1) {
+            return (<View style={{flex: 1}}>
+                <Image style={{flex: 1, width: undefined, height: undefined}}
+                    source={require('../icons/check.png')} />
+            </View>);
+        }
+        else if(this.state.galleryCancel === false && this.state.check !== 1 && this.state.galleryClick ===true){
+            return (
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size="small" color="#a55eea"/>
+                </View>
+            );
+        }
+    }
+    checkSelectedCamera = () => {
+        if (this.state.check === 2) {
+            return (<View style={{flex: 1}}>
+                <Image style={{flex: 1, width: undefined, height: undefined}}
+                    source={require('../icons/check.png')} />
+            </View>);
+        }
+        else if(this.state.cameraCancel === false && this.state.check !== 2 && this.state.cameraClick ===true){
+            return (
+                <View style={{flex:1, justifyContent: 'center'}}>
+                    <ActivityIndicator size="small" color="#a55eea"/>
+                </View>
+            );
+        }
     }
     render() {
         const { navigation } = this.props;
@@ -45,22 +80,37 @@ class sketch extends Component {
                 <View style={{ flex: 2 }}></View>
                 <View style={styles.menuRow}></View>
                 <View style={styles.rowSpace1}></View>
-                <View style={styles.rowLogo}>
+                <View style={{
+                    flex: 8,
+                    flexDirection: 'row'
+                }}>
                     <View style={{ flex: 1 }}></View>
                     <Image style={styles.sketch}
                         source={require('../icons/Sketch.png')} />
                     <View style={{ flex: 1 }}></View>
                 </View>
-                <View style={styles.rowSpace1}></View>
+                <View style={{ flex: 3 }}></View>
+                <View style={{
+                    flex: 2, flexDirection: 'row',
+                }}>
+                    {/*삽입시 생기는 체크표시 구현하기*/}
+                    <View style={{flex: 5}}></View>
+                    <View style={{flex: 2}}>
+                        {this.checkSelectedGallery()}
+                    </View>
+                    <View style={{flex: 7}}></View>
+                    <View style={{flex: 2 }}>
+                        {this.checkSelectedCamera()}
+                    </View>
+                    <View style={{flex: 5}}></View>
+                </View>
                 <View style={styles.rowBtn}>
                     <View style={{ flex: 3 }}></View>
                     <TouchableOpacity
                         style={{ flex: 5, backgroundColor: '#61B7C9' }}
                         onPress={
                             this.selectImage
-                        }
-                    >
-                        {/*이곳에 갤러리 버튼을 누르면 나올 갤러리 화면 연결해야함. 현재는 home으로 연결해놓음 */}
+                        }>
                         <View style={{ flex: 8 }}>
                             <View style={{ flex: 1 }}></View>
                             <View style={{ flex: 4, flexDirection: 'row' }}>
@@ -79,7 +129,6 @@ class sketch extends Component {
                     <TouchableOpacity
                         style={{ flex: 5, backgroundColor: '#61B7C9' }}
                         onPress={this.takeImage}>
-                        {/*이곳에 카메라 버튼을 누르면 나올 카메라 화면 연결해야함. 현재는 home으로 연결해놓음 */}
                         <View style={{ flex: 8 }}>
                             <View style={{ flex: 1 }}></View>
                             <View style={{ flex: 4, flexDirection: 'row' }}>
@@ -100,11 +149,11 @@ class sketch extends Component {
                 <View style={{ flex: 1 }}></View>
                 <View style={styles.rowFileName}>
                     <View style={{ flex: 2 }}></View>
-                    <View style={{ flex: 4 }}></View>
-                    <View style={{ flex: 4 }}>
-                    <Button title = "확인" onPress={() => navigation.navigate("Home")}></Button>
+                    <View style={{ flex: 3 }}></View>
+                    <View style={{ flex: 6 }}>
+                        <Button title="확인" onPress={() => navigation.navigate("Home")} color='#a55eea'></Button>
                     </View>
-                    <View style={{ flex: 4 }}></View>
+                    <View style={{ flex: 3 }}></View>
                     <View style={{ flex: 2 }}></View>
                 </View>
                 <View style={{ flex: 1 }}></View>
@@ -117,13 +166,11 @@ class sketch extends Component {
 sketch.navigationOptions = {
     header: null
 }
-
 const mapStateToProps = (state) => ({
-    sketch      : state.duck.get('sketch'),
+    sketch: state.duck.sketch,
 })
-
 const mapDispatchToProps = (dispatch) => ({
-    setSketch   : (data) => dispatch(actions.setSketch(data)),
+    setSketch: (data) => dispatch(actions.setSketch(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(sketch);

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import React from 'react';
+import { ColorPicker } from 'react-native-color-picker';
 
 var {height, width} = Dimensions.get('window');
 
@@ -77,14 +78,20 @@ export default StyleSheet.create({
         backgroundColor: "#FCF6E4",
         borderColor: "#448E9E",
         borderWidth: 2,
+        color: "#448E9E",
     },
     goBtnText: {
         fontSize: 0.075*width,
         color:"#FCF6E4",
         alignItems:'center',
     },
+    anotherGoodsBtn: {
+        fontSize: 0.05*width,
+        color:"#FCF6E4",
+        alignItems:'center',
+    },
     sketch: {
-        flex: 2,
+        flex: 3,
         alignItems: "center",
         height: '100%',
         width: '100%',
@@ -98,7 +105,7 @@ export default StyleSheet.create({
         flex: 1,
         height: '100%',
         width: '100%',
-        resizeMode: 'cover',
+        resizeMode: "contain",
     },
     menu: {
         flex: 1
@@ -106,5 +113,8 @@ export default StyleSheet.create({
     menuIcon: {
         height: '100%',
         width: '100%',
+    },
+    colorPicker:{
+        flex : 1,
     }
 });

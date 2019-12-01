@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ProgressBarAndroid, StyleSheet, View, Text } from 'react-native';
+import { ProgressBarAndroid, StyleSheet, View, Text, Image } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 
 // export const progressProps = {
@@ -20,7 +20,7 @@ export default class progress extends Component {
             if (this.state.progressStatus <= 1) {
                 this.setState({ progressStatus: this.state.progressStatus + .01 })
             }
-        }, 10);
+        }, 100);
         this.complete = setInterval(() => {
             if(this.state.progressStatus >= 1){
                 navigation.navigate('Transpose')
@@ -44,7 +44,19 @@ export default class progress extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{flex: 3}}></View>
+                <View style={{flex:2}}></View>
+                <View style={{flex:5, flexDirection:'row'}}>
+                    <View style ={{flex:1}}></View>
+                    <View style ={{flex:5}}>
+                    <Image source={require('../icons/gif2.gif')}
+                    style={{
+                        flex:1,
+                        resizeMode: 'contain',
+                        height:'100%',
+                        width:'100%'}}/>
+                    </View>
+                    <View style={{flex:1}}></View>
+                </View>
                 <NavigationEvents onDidFocus={this.StartProgress} />
                 <View style={{flex: 1, alignItems: 'center'}}>
                 <Text style={{ fontSize: 20, }}>{parseFloat((this.state.progressStatus * 100).toFixed(3))} % 진행됨</Text>
