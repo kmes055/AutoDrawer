@@ -18,7 +18,6 @@ import types from './types';
 // Define action(function name)
 export const setSketch = createAction(types.SET_SKETCH);
 export const setPattern = createAction(types.SET_PATTERN);
-export const setMode = createAction(types.SET_MODE);
 export const setOldColor = createAction(types.SET_OLDCOLOR);
 export const setColor = createAction(types.SET_COLOR);
 export const setProgress = createAction(types.SET_PROGRESS);
@@ -34,14 +33,13 @@ export const setDiscoGANcomplete = createAction(types.SET_DISCOGANCOMPLETE);
 const baseState = ({
     sketch      : '파일uri',
     pattern     : '파일uri or 색상코드',
-    mode        : true,
     oldColor    : '#FFFFFF',
     color       : toHsv('red'),
     progress    : 0,
     result      : '',
     recommend   : [],
-    token       : '',
-    category    : 'bag',
+    token       : 'asdf123',
+    category    : 'handbag',
     myImage     : [ require('../icons/test_image/1.jpg'),
                     require('../icons/test_image/2.jpg'),
                     require('../icons/test_image/3.jpg'),
@@ -54,7 +52,6 @@ const baseState = ({
 export default handleActions({
     [types.SET_SKETCH]      : ( state, action ) => { return Object.assign({}, state, { sketch       : action.payload }) },
     [types.SET_PATTERN]     : ( state, action ) => { return Object.assign({}, state, { pattern      : action.payload }) },
-    [types.SET_MODE]        : ( state, action ) => { return Object.assign({}, state, { mode         : action.payload }) },
     [types.SET_OLDCOLOR]    : ( state, action ) => { return Object.assign({}, state, { oldColor     : action.payload }) },
     [types.SET_COLOR]       : ( state, action ) => { return Object.assign({}, state, { color        : action.payload }) },
     [types.SET_PROGRESS]    : ( state, action ) => { return Object.assign({}, state, { progress     : action.payload }) },
@@ -78,7 +75,6 @@ export default handleActions({
 const mapStateToProps = (state) => ({
     sketch      : state.duck.get('sketch'),
     pattern     : state.duck.get('pattern'),
-    mode        : state.duck.get('mode'),
     color       : state.duck.get('color'),
     progress    : state.duck.get('progress'),
     result      : state.duck.get('result'),
@@ -90,7 +86,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setSketch   : (data) => dispatch(actions.setSketch(data)),
     setPattern  : (data) => dispatch(actions.setPattern(data)),
-    setMode     : (data) => dispatch(actions.setMode(data)),
     setOldColor : (data) => dispatch(actions.setOldColor(data)),
     setColor    : (data) => dispatch(actions.setColor(data)),
     setProgress : (data) => dispatch(actions.setProgress(data)),

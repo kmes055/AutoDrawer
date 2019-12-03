@@ -10,6 +10,29 @@ class transpose extends Component {
         super(props);
         this.state={showDisco : false};
     }
+    getDiscoGAN = async () => {
+        baseUrl = 'http://192.168.43.223:8000/stream/'
+        options = {
+          method: 'POST',
+          headers: {
+            Token: this.props.token,
+          },
+          body: JSON.stringify({
+            category: this.props.category,
+            mode: false,
+          })
+        }
+        
+        await fetch(baseUrl, options).then(response => {
+            if (response.status == 200) {
+                this.props.setRecommend(response.data['result'])
+                //console.log(response)
+            }else {
+                console.log(response)
+            }
+        })
+    }
+
     showDiscoGAN = () => {
         if(this.state.showDisco === false){
             return(
@@ -34,19 +57,19 @@ class transpose extends Component {
                 )
             }
             else{
-            return(
-                <View style={{flex:1, flexDirection: 'row'}}>
-                    <View style={{flex: 4}}>
-                        <Image style={styles.completeMain}
-                        source={require('../icons/empty.png')} />
+                return(
+                    <View style={{flex:1, flexDirection: 'row'}}>
+                        <View style={{flex: 4}}>
+                            <Image style={styles.completeMain}
+                            source={require('../icons/empty.png')} />
+                        </View>
+                        <View style={{flex:1}}></View>
+                        <View style={{flex: 4}}>
+                            <Image style={styles.completeMain}
+                            source={require('../icons/empty.png')} />
+                        </View>
                     </View>
-                    <View style={{flex:1}}></View>
-                    <View style={{flex: 4}}>
-                        <Image style={styles.completeMain}
-                        source={require('../icons/empty.png')} />
-                    </View>
-                </View>
-            )
+                )
             }
         }
     }
@@ -107,11 +130,19 @@ transpose.navigationOptions = {
     header: null
 }
 
-export default connect(
-    (state) => ({
-        discoGANcomplete: state.duck.discoGANcomplete
-    }),
-    (dispatch) => ({
-        setDiscoGANcomplete: (data) => dispatch(actions.setDiscoGANcomplete(data)),
-    }),
-)(transpose);
+const mapStateToProps = (state) => {
+    //console.log(state.duck);
+    return {
+        recommend : state.duck.recommend,
+        token     : state.duck.token,
+        category  : state.duck.category,
+    }
+}
+  
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setRecommend: (data) => dispatch(actions.setRecommend(data)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(transpose);
