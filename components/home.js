@@ -179,6 +179,7 @@ const mapStateToProps = (state) => {
   return {
     sketch: state.duck.sketch,
     pattern: state.duck.pattern,
+    mode: state.duck.mode,
     recommend: state.duck.recommend,
     token: state.duck.token,
     category: state.duck.category,
@@ -189,6 +190,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setSketch: (data) => dispatch(actions.setSketch(data)),
     setPattern: (data) => dispatch(actions.setPattern(data)),
+    setMode     : (data) => dispatch(actions.setMode(data)),
     setRecommend: (data) => dispatch(actions.setRecommend(data)),
     setToken: (data) => dispatch(actions.setToken(data)),
     setCategory: (data) => dispatch(actions.setCategory(data)),
