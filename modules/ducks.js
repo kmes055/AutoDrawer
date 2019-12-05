@@ -73,14 +73,14 @@ export default handleActions({
 /*
 
 const mapStateToProps = (state) => ({
-    sketch      : state.duck.get('sketch'),
-    pattern     : state.duck.get('pattern'),
-    color       : state.duck.get('color'),
-    progress    : state.duck.get('progress'),
-    result      : state.duck.get('result'),
-    recommend   : state.duck.get('recommend'),
-    token       : state.duck.get('token'),
-    category    : state.duck.get('category'),
+    sketch      : state.duck.sketch,
+    pattern     : state.duck.pattern,
+    color       : state.duck.color,
+    progress    : state.duck.progress,
+    result      : state.duck.result,
+    recommend   : state.duck.recommend,
+    token       : state.duck.token,
+    category    : state.duck.category,
 })
 
 const mapDispatchToProps = (dispatch) => ({

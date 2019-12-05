@@ -7,22 +7,22 @@ import { NavigationEvents } from 'react-navigation';
 //     indeterminate: false,
 // }
 
-export default class progress extends Component {
+class progress extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            progressStatus: 0.0
-        }
     }
     StartProgress = () => {
         const { navigation } = this.props;
         this.value = setInterval(() => {
-            if (this.state.progressStatus <= 1) {
-                this.setState({ progressStatus: this.state.progressStatus + .01 })
+            if (this.props.progress <= 1) {
+                prog = this.receiveFromServer('progress')
+                this.props.setProgress(prog)
             }
         }, 100);
         this.complete = setInterval(() => {
-            if(this.state.progressStatus >= 1){
+            if(this.props.progress >= 1){
+                res = this.receiveFromServer('result')
+                
                 navigation.navigate('Transpose')
             }
         },50);
@@ -31,14 +31,22 @@ export default class progress extends Component {
         clearInterval(this.value);
     }
     clearProgress = () => {
-        this.setState({ progressStatus: 0.0 })
-    }
-    movePage = () => {
-        this.state.progressStatus 
+        this.props.setProgress(0.0)
     }
     moveResult = () => {
-        if(this.state.progressStatus == 100){
+        if(this.props.progress == 100){
             navigation.navigate('Transpose')
+        }
+    }
+    receiveFromServer = (mode) => {
+        baseUrl = 'http://172.16.20.133:8000/stream/'
+        options = {
+            headers: {
+                token: this.props.token,
+                mode: mode,
+                category: this.props.category,
+                progress: this.props.progress,
+              },
         }
     }
     render() {
@@ -79,3 +87,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#CAC0E4',
     },
 });
+
+const mapStateToProps = (state) => ({
+    progress    : state.duck.progress,
+    token       : state.duck.token,
+    category    : state.duck.category,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    setProgress : (data) => dispatch(actions.setProgress(data)),
+    setResult   : (data) => dispatch(actions.setResult(data)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(progress);

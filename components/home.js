@@ -10,7 +10,7 @@ class Home extends Component {
     super(props);
   }
   sendToServer = async () => {
-    baseUrl = 'http://192.168.43.223:8000/stream/'
+    baseUrl = 'http://172.16.20.133:8000/stream/'
     options = {
       method: 'POST',
       headers: {
@@ -19,17 +19,16 @@ class Home extends Component {
       body: JSON.stringify({
         sketch: this.props.sketch,
         pattern: this.props.pattern,
+        recommend: this.props.recommend,
         category: this.props.category,
-        mode: true,
+        mode: 'TextureGAN'
       })
     }
 
     await fetch(baseUrl, options).then(response => {
       if (response.status == 200) {
-        console.log(response)
-        navigation.navigate('transpose')
-      }
-      else {
+        navigation.navigate('Progress')
+      } else {
         console.log(response)
       }
     })
@@ -182,21 +181,24 @@ Home.navigationOptions = {
 const mapStateToProps = (state) => {
   //console.log(state.duck);
   return {
-    sketch    : state.duck.sketch,
-    pattern   : state.duck.pattern,
-    token     : state.duck.token,
-    category  : state.duck.category,
+    sketch: state.duck.sketch,
+    pattern: state.duck.pattern,
+    mode: state.duck.mode,
+    recommend: state.duck.recommend,
+    token: state.duck.token,
+    category: state.duck.category,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setSketch   : (data) => dispatch(actions.setSketch(data)),
-    setPattern  : (data) => dispatch(actions.setPattern(data)),
+    setSketch: (data) => dispatch(actions.setSketch(data)),
+    setPattern: (data) => dispatch(actions.setPattern(data)),
+    setMode     : (data) => dispatch(actions.setMode(data)),
     setRecommend: (data) => dispatch(actions.setRecommend(data)),
-    setToken    : (data) => dispatch(actions.setToken(data)),
-    setCategory : (data) => dispatch(actions.setCategory(data)),
-    setProgress : (data) => dispatch(actions.setProgress(data)),
+    setToken: (data) => dispatch(actions.setToken(data)),
+    setCategory: (data) => dispatch(actions.setCategory(data)),
+    setProgress: (data) => dispatch(actions.setProgress(data)),
   }
 }
 
