@@ -14,18 +14,20 @@ class progress extends Component {
     StartProgress = () => {
         const { navigation } = this.props;
         this.value = setInterval(() => {
-            if (this.props.progress <= 1) {
-                prog = this.receiveFromServer('progress')
-                this.props.setProgress(prog)
+            if (this.props.progress < 1) {
+                res = this.receiveFromServer('progress')
+                this.props.setProgress(res.progress)
             }
         }, 100);
         this.complete = setInterval(() => {
             if(this.props.progress >= 1){
                 res = this.receiveFromServer('result')
-                
+                this.props.setResult(res.textureGAN)
+                this.props.setRecommend(res.discoGAN)
+                console.log('result: ', this.props.result)
                 navigation.navigate('Transpose')
             }
-        },50);
+        },100);
     }
     stopProgress = () => {
         clearInterval(this.value);
@@ -45,9 +47,20 @@ class progress extends Component {
                 token: this.props.token,
                 mode: mode,
                 category: this.props.category,
-                progress: this.props.progress,
-              },
+            }
         }
+        if (mode === 'progress') {
+            options.headers.progress = this.props.progress
+        }
+        await fetch(baseUrl, options).then(response => {
+            if (response.status !== 200) {
+                return -1;
+            }else {
+                return response.body;
+            }
+        })
+
+
     }
     render() {
         return (

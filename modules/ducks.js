@@ -37,7 +37,7 @@ const baseState = ({
     color       : toHsv('red'),
     progress    : 0,
     result      : '',
-    recommend   : [],
+    recommend   : '',
     token       : 'asdf123',
     category    : 'handbag',
     myImage     : [ require('../icons/test_image/1.jpg'),
