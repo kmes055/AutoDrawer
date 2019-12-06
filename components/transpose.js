@@ -10,28 +10,6 @@ class transpose extends Component {
         super(props);
         this.state={showDisco : false};
     }
-    getDiscoGAN = async () => {
-        baseUrl = 'http://192.168.43.223:8000/stream/'
-        options = {
-          method: 'POST',
-          headers: {
-            Token: this.props.token,
-          },
-          body: JSON.stringify({
-            category: this.props.category,
-            mode: false,
-          })
-        }
-        
-        await fetch(baseUrl, options).then(response => {
-            if (response.status == 200) {
-                this.props.setRecommend(response.data['result'])
-                //console.log(response)
-            }else {
-                console.log(response)
-            }
-        })
-    }
 
     showDiscoGAN = () => {
         if(this.state.showDisco === false){
@@ -91,9 +69,9 @@ class transpose extends Component {
                 <View style={styles.rowLogo}>
                     <View style={{ flex: 1 }}></View>
                     <Image style={{flex: 3,
-        alignItems: "center",
-        height: '130%',
-        width: '130%',}}
+                        alignItems: "center",
+                        height: '130%',
+                        width: '130%',}}
                         source={require('../icons/logo.png')} />
                     <View style={{ flex: 1 }}></View>
                 </View>
@@ -104,7 +82,7 @@ class transpose extends Component {
                     <View style={{ flex: 1 }}></View>
                     <View style={{ flex: 3 }}>
                         <Image style={styles.completeMain}
-                            source={require('../icons/sample1.jpg')} />
+                            source={{uri: `data:image/jpg;base64,${this.props.result}`}} />
                     </View>
                     <View style={{ flex: 1 }}></View>
                 </View>
@@ -116,7 +94,9 @@ class transpose extends Component {
                 }}>
                     <View style={{ flex: 1 }}></View>
                     <View style={{flex:4}}>
-                    {this.showDiscoGAN()}
+                        <Image style={styles.completeMain}
+                            source={{uri: `data:image/jpg;base64,${this.props.recommend}`}} />
+                            
                     </View>
                     <View style={{ flex: 1 }}></View>
                 </View>
@@ -133,9 +113,10 @@ transpose.navigationOptions = {
 const mapStateToProps = (state) => {
     //console.log(state.duck);
     return {
-        recommend : state.duck.recommend,
-        token     : state.duck.token,
-        category  : state.duck.category,
+        result      : state.duck.result,
+        recommend   : state.duck.recommend,
+        token       : state.duck.token,
+        category    : state.duck.category,
     }
 }
   

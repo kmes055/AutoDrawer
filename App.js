@@ -39,7 +39,6 @@ const DrawerNav = createDrawerNavigator({
     Tutorial: Tutorial,
     Transpose: Transpose,
     마이페이지: Mypage,
-    진행바:ProgressBar,
 },
     {   
         drawerPosition: 'right',

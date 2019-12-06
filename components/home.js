@@ -5,12 +5,31 @@ import * as actions from '../modules/ducks';
 import { connect } from 'react-redux';
 import styles from '../styles';
 
+function timeoutPromise(ms, promise) {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error("promise timeout"))
+    }, ms);
+    promise.then(
+      (res) => {
+        clearTimeout(timeoutId);
+        resolve(res);
+      },
+      (err) => {
+        clearTimeout(timeoutId);
+        reject(err);
+      }
+    );
+  })
+}
+
 class Home extends Component {
   constructor(props) {
     super(props);
   }
   sendToServer = async () => {
-    baseUrl = 'http://172.16.20.133:8000/stream/'
+    const { navigation } = this.props
+    baseUrl = 'http://192.168.43.223:8000/stream/'
     options = {
       method: 'POST',
       headers: {
@@ -21,12 +40,13 @@ class Home extends Component {
         pattern: this.props.pattern,
         recommend: this.props.recommend,
         category: this.props.category,
-        mode: 'TextureGAN'
+        mode: 'upload'
       })
     }
 
-    await fetch(baseUrl, options).then(response => {
+    await fetch(baseUrl, options).then(async response => {
       if (response.status == 200) {
+        data = await response.json()
         navigation.navigate('Progress')
       } else {
         console.log(response)

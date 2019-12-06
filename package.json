@@ -20,6 +20,7 @@
     "react": "16.8.3",
     "react-dom": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-35.0.0.tar.gz",
+    "react-native-base64": "0.0.2",
     "react-native-circle-drawer": "1.0.0",
     "react-native-color-picker": "0.4.2",
     "react-native-elements": "1.2.6",
