@@ -10,6 +10,8 @@ https://g6ling.gitbooks.io/react-native-tutorial-korean/content/ (react native �
 리액트 개발자가 걷게 되는 길 https://repo.yona.io/doortts/blog/post/297
 React에서 Mobx 경험기 http://woowabros.github.io/experience/2019/01/02/kimcj-react-mobx.html
 axis와 fetch중 어떤 것을 사용할까? https://hoorooroob.tistory.com/entry/React-React-Naive-TIPS-axios-%EC%99%80-fetch-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C
+< React- Native > 데이터 통신 & JSON 파싱https://alpoxdev.github.io/2018/11/22/ReactNative/React-Native-1/
+How to Render Base64 Encoded Image on React Native https://til.hashrocket.com/posts/b209c6ba05-how-to-render-base64-encoded-image-on-react-native
 
 AI
 GAN을 이용한 image to image translation:pix2pix, cycleGAN, discoGAN https://taeoh-kim.github.io/blog/gan%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-image-to-image-translation-pix2pix-cyclegan-discogan/
@@ -29,3 +31,4 @@ socket programming in python https://www.geeksforgeeks.org/socket-programming-py
 PuTTY를 사용하여 Windows에서 Linux 인스턴스에 연결 https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/putty.html
 아마존 웹 서비스 생활코딩 강의 https://opentutorials.org/course/2717
 Google Developers(firebase 포함) https://developers.google.com/products
+Google Colab 런타임 연결 끊김 방지 https://bryan7.tistory.com/1077
