@@ -29,7 +29,7 @@ class Home extends Component {
   }
   sendToServer = async () => {
     const { navigation } = this.props
-    baseUrl = 'http://192.168.43.223:8000/stream/'
+    baseUrl = 'http://172.30.1.58:8000/stream/'
     options = {
       method: 'POST',
       headers: {

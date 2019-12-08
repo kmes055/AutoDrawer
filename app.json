@@ -27,11 +27,19 @@
       "supportsTablet": true
     },
     "android": {
-      "splash":{
+      "splash": {
         "image": "./icons/logo.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
-      }
-    }
+      },
+      "package": "expo.eject.AutoDrawer",
+      "publishBundlePath": "android\\app\\src\\main\\assets\\shell-app.bundle",
+      "publishManifestPath": "android\\app\\src\\main\\assets\\shell-app-manifest.json"
+    },
+    "isDetached": true,
+    "detach": {
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v119-sdk35.0.0-6758e9de-1e10-40f8-863d-ec8972895cf1.tar.gz"
+    },
+    "scheme": "expedc33a2b4d9149859e29108728f477d9"
   }
 }

@@ -12,6 +12,10 @@ React에서 Mobx 경험기 http://woowabros.github.io/experience/2019/01/02/kimcj-rea
 axis와 fetch중 어떤 것을 사용할까? https://hoorooroob.tistory.com/entry/React-React-Naive-TIPS-axios-%EC%99%80-fetch-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C
 < React- Native > 데이터 통신 & JSON 파싱https://alpoxdev.github.io/2018/11/22/ReactNative/React-Native-1/
 How to Render Base64 Encoded Image on React Native https://til.hashrocket.com/posts/b209c6ba05-how-to-render-base64-encoded-image-on-react-native
+[React Native] Expo eject https://velog.io/@max9106/React-Native-Expo-eject-v8k2akbliq
+
+Application(After eject)
+App Crashes at launch https://forums.expo.io/t/app-crashes-at-launch/21875/3
 
 AI
 GAN을 이용한 image to image translation:pix2pix, cycleGAN, discoGAN https://taeoh-kim.github.io/blog/gan%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-image-to-image-translation-pix2pix-cyclegan-discogan/
