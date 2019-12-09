@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.fresco:animated-drawable:1.10.0@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/animated-drawable-1.10.0.aar/d7c2e421dbbf33d4dd0b500e92a1c9b5/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-animated-drawable-1.10.0.aar/f9cfff7571e4ffbc1bc05c9e228c8731/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/animated-drawable-1.10.0.aar/d7c2e421dbbf33d4dd0b500e92a1c9b5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/animated-drawable-1.10.0.aar/d7c2e421dbbf33d4dd0b500e92a1c9b5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-animated-drawable-1.10.0.aar/f9cfff7571e4ffbc1bc05c9e228c8731/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-animated-drawable-1.10.0.aar/f9cfff7571e4ffbc1bc05c9e228c8731/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

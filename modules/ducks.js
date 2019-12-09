@@ -27,7 +27,10 @@ export const setToken = createAction(types.SET_TOKEN);
 export const setCategory = createAction(types.SET_CATEGORY);
 export const setMyImage = createAction(types.SET_MYIMAGE);
 export const setCheckPalette = createAction(types.SET_CHECKPALETTE);
-export const setDiscoGANcomplete = createAction(types.SET_DISCOGANCOMPLETE);
+export const setUserId = createAction(types.SET_USER_ID);
+export const setNickname = createAction(types.SET_NICKNAME);
+export const setMyDesign = createAction(types.SET_MYDESIGN);
+export const setProfile = createAction(types.SET_PROFILE);
 
 // Default values
 const baseState = ({
@@ -45,7 +48,10 @@ const baseState = ({
                     require('../icons/test_image/3.jpg'),
                     require('../icons/test_image/4.jpg') ],
     checkPalette: false,
-    discoGANcomplete: false,
+    user_id     : '',
+    nickname    : '닉네임',
+    myDesign    : 0,
+    profile     : '',
 });
 
 // Define reducers. actual implement here.
@@ -61,8 +67,10 @@ export default handleActions({
     [types.SET_CATEGORY]    : ( state, action ) => { return Object.assign({}, state, { category     : action.payload }) },
     [types.SET_MYIMAGE]     : ( state, action ) => { return Object.assign({}, state, { myImage      : action.payload }) },
     [types.SET_CHECKPALETTE]: ( state, action ) => { return Object.assign({}, state, { checkPalette : action.payload }) },
-    [types.SET_DISCOGANCOMPLETE]: ( state, action ) => { return Object.assign({}, state, { discoGANcomplete : action.payload }) },
-
+    [types.SET_USER_ID]     : ( state, action ) => { return Object.assign({}, state, { user_id      : action.payload }) },
+    [types.SET_NICKNAME]    : ( state, action ) => { return Object.assign({}, state, { nickname     : action.payload }) },
+    [types.SET_MYDESIGN]    : ( state, action ) => { return Object.assign({}, state, { myDesign     : action.paloadd }) },
+    [types.SET_PROFILE]    : ( state, action ) => { return Object.assign({}, state, { profile      : action.paloadd }) },
 }, baseState);
 
 ////////////////////////////////////////////////
@@ -71,28 +79,39 @@ export default handleActions({
 ////////////////////////////////////////////////
 
 /*
+import * as actions from '../modules/ducks';
+import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
     sketch      : state.duck.sketch,
     pattern     : state.duck.pattern,
     color       : state.duck.color,
+    oldColor    : state.duck.oldColor
     progress    : state.duck.progress,
     result      : state.duck.result,
     recommend   : state.duck.recommend,
     token       : state.duck.token,
     category    : state.duck.category,
+    user_id     : state.duck.user_id,
+    nickname    : state.duck.nickname,
+    myDesign    : state.duck.myDesign,
+    profile     : state.duck.profile,
 })
 
 const mapDispatchToProps = (dispatch) => ({
     setSketch   : (data) => dispatch(actions.setSketch(data)),
     setPattern  : (data) => dispatch(actions.setPattern(data)),
-    setOldColor : (data) => dispatch(actions.setOldColor(data)),
     setColor    : (data) => dispatch(actions.setColor(data)),
+    setOldColor : (data) => dispatch(actions.setOldColor(data)),
     setProgress : (data) => dispatch(actions.setProgress(data)),
     setResult   : (data) => dispatch(actions.setResult(data)),
     setRecommend: (data) => dispatch(actions.setRecommend(data)),
     setToken    : (data) => dispatch(actions.setToken(data)),
     setCategory : (data) => dispatch(actions.setCategory(data)),
+    setUserId   : (data) => dispatch(actions.setUserId(data)),
+    setNickname : (data) => dispatch(actions.setNickname(data)),
+    setMyDesign : (data) => dispatch(actions.setMyDesign(data)),
+    setProfile  : (data) => dispatch(actions.setProfile(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)();

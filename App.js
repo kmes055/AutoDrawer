@@ -18,6 +18,7 @@ import Progress from './components/ProgressBarComponent.android';
 import About from './components/about';
 import Palette from './components/Palette';
 import ProgressBar from './components/ProgressBarComponent.android';
+import Login from './components/login';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 
@@ -30,6 +31,7 @@ const RootStack = createStackNavigator({
         Palette,
         Mypage,
         Tutorial,
+        Login,
     },
     { initialRouteName: 'Home' }
 );

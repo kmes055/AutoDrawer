@@ -68,11 +68,11 @@ class Mypage extends Component {
                 <View style={{ flex: 51 }}>
                     <Content>
                         <View style={{ flex: 2, alignItems: 'center' }}>
-                            <Image source={require('../icons/empty.png')}
+                            <Image source={this.props.profile}
                                 style={{ width: 75, height: 75, borderRadius: 37.5 }} />
                         </View>
                         <View style={{ alignItems: 'center',paddingHorizontal: 10, paddingVertical: 10 }}>
-                            <Text style={{ fontWeight: 'bold' }}>김준수</Text>
+                            <Text style={{ fontWeight: 'bold' }}>{this.props.nickname}</Text>
                         </View>
                         <View style={{flex:2}}></View>
                         <View style={{ flex: 6 }}>
@@ -81,7 +81,7 @@ class Mypage extends Component {
                                 </View>
                                 <View style={{ alignItems: 'center' }}>
                                 <Text style={{ fontSize: 10, color: 'gray' }}>나만의 디자인 수</Text>
-                                    <Text>4</Text>
+                                    <Text>{this.props.myDesign}</Text>
                                 </View>
                                 <View style={{ alignItems: 'center' }}>
                                 </View>
@@ -112,10 +112,14 @@ Mypage.navigationOptions = {
 }
 
 const mapStateToProps = (state) => ({
-    image       : state.duck.Image,
+    user_id      : state.duck.user_id,
+    nickname    : state.duck.nickname,
+    myDesign    : state.duck.myDesign,
+    profile     : state.duck.profile,
 })
-const mapDispatchToProps = (dispatch) => ({
 
+const mapDispatchToProps = (dispatch) => ({
+    setMyDesign : (data) => dispatch(actions.setMyDesign(data)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Mypage);

@@ -27,6 +27,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
   }
+  checkLoginAndNavigate = destination => {
+    const { navigation } = this.props;
+    if (this.props.token === "asdf123") {
+      navigation.navigate('Login');
+    }else {
+      navigation.navigate(destination);
+    }
+  }
   sendToServer = async () => {
     const { navigation } = this.props
     baseUrl = 'http://172.30.1.58:8000/stream/'
@@ -111,7 +119,7 @@ class Home extends Component {
           <View style={{ flex: 3 }}></View>
           <TouchableOpacity
             style={{ flex: 5, backgroundColor: '#448E9E' }}
-            onPress={() => navigation.navigate('Sketch')}>
+            onPress={() => this.checkLoginAndNavigate('Sketch')}>
             <View style={{ flex: 8 }}>
               <View style={{ flex: 1 }}></View>
               <View style={{ flex: 4, flexDirection: 'row' }}>
@@ -129,7 +137,7 @@ class Home extends Component {
           <View style={{ flex: 3 }}></View>
           <TouchableOpacity
             style={{ flex: 5, backgroundColor: '#448E9E' }}
-            onPress={() => navigation.navigate("Pattern")}>
+            onPress={() => this.checkLoginAndNavigate('Sketch')}>
             <View style={{ flex: 8 }}>
               <View style={{ flex: 1 }}></View>
               <View style={{ flex: 4, flexDirection: 'row' }}>

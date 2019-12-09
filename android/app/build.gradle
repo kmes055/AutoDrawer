@@ -107,8 +107,11 @@ dependencies {
 
   implementation 'com.android.support:multidex:1.0.1'
 
+  // Kakao
+  implementation project(':react-native-kakao-logins')
+
   // Our dependencies
-  implementation "com.android.support:appcompat-v7:$supportLibVersion"
+  //implementation "com.android.support:appcompat-v7:$supportLibVersion"
 
   // Our dependencies from ExpoView
   // DON'T ADD ANYTHING HERE THAT ISN'T IN EXPOVIEW. ONLY COPY THINGS FROM EXPOVIEW TO HERE.
